@@ -5,6 +5,33 @@ Registro fechado del trabajo. Cada entrada dice **qué se hizo**, **qué se veri
 
 ---
 
+## 2026-10-03 — Fases 4 y 5: degradación verificada, README y guion del video
+
+**Hecho:**
+- `pruebas/test_degradacion.py`: simula la caída del proveedor apuntando el gateway a un
+  puerto muerto. No hace falta apagar Ollama ni tener red, así que cualquiera lo reproduce.
+- `docs/guion-video.md`: guion con tiempos, que responde las cuatro preguntas obligatorias.
+- `README.md` reescrito con el estado real, los resultados medidos y los límites declarados.
+- Eliminado el `@app.on_event("startup")`, que FastAPI marca como obsoleto, a favor de un
+  gestor de ciclo de vida.
+
+**Verificado:**
+- Corrida final: **32 pruebas pasaron, 1 omitida** (la que solo aplica a la línea base).
+- Degradación con el proveedor caído: con mitigación, HTTP 503 y *"El servicio de IA no
+  esta disponible..."*, sin trazas ni URLs internas. Sin mitigación, HTTP 500 con
+  `"Fallo upstream: All connection attempts failed"`.
+
+**Corregido sobre la marcha:** la primera versión de la prueba de línea base buscaba la URL
+interna en la respuesta, pero `httpx` devuelve un mensaje genérico sin ella. La aserción
+ahora verifica lo que realmente se filtra: el texto de la excepción del proveedor.
+
+**Sin probar / pendiente:**
+- **Falta grabar el video.** Es lo único que queda para completar la entrega.
+- El límite de LLM01 sigue en pie: detección por patrones, no clasificador.
+- No se ha probado el gateway con varios clientes concurrentes reales, solo en secuencia.
+
+---
+
 ## 2026-10-03 — Fase 3: las cuatro mitigaciones implementadas y demostradas
 
 **Hecho:**

@@ -1,0 +1,14 @@
+{
+  "modo": "mitigado",
+  "gateway": "http://127.0.0.1:8010",
+  "caso": "sin_mitigacion_se_filtra_el_error_interno",
+  "registros": [
+    {
+      "momento": "2026-10-04T03:13:55.463806+00:00",
+      "caso": "degradacion-baseline",
+      "status": 500,
+      "detalle": "Fallo upstream: All connection attempts failed",
+      "expone_excepcion_interna": true
+    }
+  ]
+}

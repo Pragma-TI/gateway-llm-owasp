@@ -4,7 +4,7 @@
   "caso": "el_limite_es_por_api_key_y_no_por_ip",
   "registros": [
     {
-      "momento": "2026-10-04T02:27:48.455244+00:00",
+      "momento": "2026-10-04T03:14:20.247020+00:00",
       "caso": "a4-2-aislamiento-por-clave",
       "clave_a_rechazadas": 30,
       "status_clave_b": 200

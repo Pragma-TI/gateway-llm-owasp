@@ -4,7 +4,7 @@
   "caso": "limite_de_peticiones",
   "registros": [
     {
-      "momento": "2026-10-04T02:27:47.491569+00:00",
+      "momento": "2026-10-04T03:14:19.333793+00:00",
       "caso": "a4-1-rate-limit",
       "peticiones": 30,
       "aceptadas": 10,

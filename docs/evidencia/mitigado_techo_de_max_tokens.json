@@ -4,11 +4,11 @@
   "caso": "techo_de_max_tokens",
   "registros": [
     {
-      "momento": "2026-10-04T02:27:56.660800+00:00",
+      "momento": "2026-10-04T03:14:27.508072+00:00",
       "caso": "a4-3-techo-tokens",
       "max_tokens_solicitado": 100000,
       "status": 200,
-      "segundos": 8.204,
+      "segundos": 7.255,
       "max_tokens_aplicado": 512
     }
   ]

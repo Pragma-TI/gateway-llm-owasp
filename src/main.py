@@ -20,6 +20,7 @@ Mapeo a OWASP Top 10 for LLM Applications (2025):
 # tratando el cuerpo JSON como parametro de URL, devolviendo 422 en todo.
 import logging
 import time
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -36,10 +37,24 @@ import sanitizacion
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 log = logging.getLogger("gateway")
 
+@asynccontextmanager
+async def ciclo_de_vida(_: FastAPI):
+    """Avisa en qué modo arrancó el gateway."""
+    if config.ES_BASELINE:
+        log.warning(
+            "GATEWAY_MODO=baseline — TODAS las mitigaciones estan APAGADAS. "
+            "Este modo existe unicamente para grabar la linea base del proyecto."
+        )
+    else:
+        log.info("Modo mitigado: LLM01, LLM02, LLM07 y LLM10 activas.")
+    yield
+
+
 app = FastAPI(
     title="Gateway LLM con Seguridad OWASP",
     description="Punto de entrada único hacia el proveedor de inferencia.",
     version="1.0.0",
+    lifespan=ciclo_de_vida,
 )
 
 
@@ -61,17 +76,6 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 aplicar_limite = (
     limiter.limit(config.LIMITE_PETICIONES) if config.MITIGAR_LIMITE else (lambda f: f)
 )
-
-
-@app.on_event("startup")
-async def avisar_modo() -> None:
-    if config.ES_BASELINE:
-        log.warning(
-            "GATEWAY_MODO=baseline — TODAS las mitigaciones estan APAGADAS. "
-            "Este modo existe unicamente para grabar la linea base del proyecto."
-        )
-    else:
-        log.info("Modo mitigado: LLM01, LLM02, LLM07 y LLM10 activas.")
 
 
 class Consulta(BaseModel):

@@ -1,0 +1,15 @@
+{
+  "modo": "mitigado",
+  "gateway": "http://127.0.0.1:8010",
+  "caso": "con_mitigacion_el_cliente_recibe_un_mensaje_claro",
+  "registros": [
+    {
+      "momento": "2026-10-04T03:13:53.035848+00:00",
+      "caso": "degradacion-mitigada",
+      "status": 503,
+      "detalle": "El servicio de IA no esta disponible. Intenta nuevamente en unos minutos.",
+      "filtra_url_interna": false,
+      "filtra_traza": false
+    }
+  ]
+}
