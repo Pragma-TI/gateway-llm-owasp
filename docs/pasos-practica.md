@@ -104,10 +104,10 @@ Esta ventana **queda ocupada**. No vuelvas a escribir en ella hasta el PASO 13.
 
 **Escribe:**
 ```
-curl http://127.0.0.1:8010/
+"modo actual: " + (Invoke-RestMethod -Uri "http://127.0.0.1:8010/").modo
 ```
 
-**Debes ver:** un texto largo que incluye `"modo":"baseline"`.
+**Debes ver:** `modo actual: baseline`
 
 ❌ **Si dice `"modo":"mitigado"`:** detente. La variable no se aplicó. Ve a la VENTANA 1,
 pulsa `Ctrl+C` y repite el PASO 5.
@@ -263,10 +263,10 @@ INFO:     Application startup complete.
 
 **Escribe:**
 ```
-curl http://127.0.0.1:8010/
+"modo actual: " + (Invoke-RestMethod -Uri "http://127.0.0.1:8010/").modo
 ```
 
-**Debes ver:** `"modo":"mitigado"`.
+**Debes ver:** `modo actual: mitigado`
 
 ❌ **Si sigue diciendo `baseline`:** faltó el `Remove-Item`. Vuelve al PASO 13.
 
@@ -404,11 +404,15 @@ Select-String -Path logs\gateway_mitigado.jsonl -Pattern "12345678"
 
 **Escribe:**
 ```
-curl http://127.0.0.1:8010/metricas
+Invoke-RestMethod -Uri "http://127.0.0.1:8010/metricas"
 ```
 
-**Debes ver:** algo como
-`{"peticiones":20,"violaciones":2,"guardrail_violation_rate_pct":10.0}`
+**Debes ver** una tabla como esta (los números varían según cuántas consultas hiciste):
+```
+peticiones violaciones guardrail_violation_rate_pct
+---------- ----------- ----------------------------
+        20           2                         10.0
+```
 
 📌 Se puede auditar cuántos ataques hubo **sin haber guardado ni una sola consulta**.
 
@@ -441,4 +445,5 @@ curl http://127.0.0.1:8010/metricas
 | El navegador no se actualiza | Caché de Chrome | **Ctrl+F5** |
 | 429 antes de tiempo | Gastaste el cupo de esa clave | Espera un minuto |
 | `no se reconoce ollama` | Ollama está apagado | Ábrelo desde el menú Inicio |
+| `curl` devuelve un bloque enorme (StatusCode, RawContent, Headers...) | En PowerShell `curl` es otro comando distinto al de Linux | Usa `Invoke-RestMethod`, que devuelve solo el dato |
 | Error rojo de `Get-NetTCPConnection` | **No es un fallo**: así avisa PowerShell de que no encontró nada, o sea que el puerto está libre | Continúa |
