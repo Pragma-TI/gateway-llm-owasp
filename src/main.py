@@ -122,8 +122,8 @@ def identificar_cliente(api_key: str | None) -> str:
 async def raiz() -> dict:
     """Punto de entrada informativo: qué es este servicio y qué se puede hacer."""
     return {
-        "servicio": "Gateway LLM con Seguridad OWASP",
-        "descripcion": "Punto de entrada unico entre las aplicaciones cliente y el proveedor de inferencia.",
+        "servicio": "Asistente del Edificio · Puerta de Entrada Segura",
+        "descripcion": "Puerta unica entre las aplicaciones del edificio y el asistente de inteligencia artificial.",
         "modo": config.MODO,
         "documentacion_interactiva": "/docs",
         "endpoints": {
