@@ -15,7 +15,7 @@ A partir de aquí:
 
 **Escribe** (las dos líneas de una vez):
 ```
-cd C:\proyectos\LLM\gateway-llm-owasp; .env\Scripts\Activate.ps1
+cd C:\proyectos\LLM\gateway-llm-owasp; .\venv\Scripts\Activate.ps1
 $host.UI.RawUI.WindowTitle = "VENTANA 1 - GATEWAY"
 ```
 
@@ -33,7 +33,7 @@ preparada y los comandos siguientes fallarán con *"no se reconoce uvicorn"*.
 
 **Escribe** (las dos líneas de una vez):
 ```
-cd C:\proyectos\LLM\gateway-llm-owasp; .env\Scripts\Activate.ps1
+cd C:\proyectos\LLM\gateway-llm-owasp; .\venv\Scripts\Activate.ps1
 $host.UI.RawUI.WindowTitle = "VENTANA 2 - COMANDOS"
 ```
 
@@ -89,8 +89,11 @@ Get-NetTCPConnection -LocalPort 8010 -State Listen -ErrorAction SilentlyContinue
 
 **Escribe:**
 ```
-$env:GATEWAY_MODO="baseline"; uvicorn main:app --app-dir src --port 8010
+cd C:\proyectos\LLM\gateway-llm-owasp; .\venv\Scripts\Activate.ps1; $env:GATEWAY_MODO="baseline"; uvicorn main:app --app-dir src --port 8010
 ```
+
+> Lleva el `cd` y el `Activate` aunque ya los hayas hecho en el PASO 1.
+> Repetirlos no estorba, y asi el comando funciona aunque abras la ventana de cero.
 
 **Debes ver:**
 ```
@@ -251,7 +254,7 @@ Y el prompt `(venv) PS ...>` disponible otra vez.
 
 **Escribe:**
 ```
-cd C:\proyectos\LLM\gateway-llm-owasp; .env\Scripts\Activate.ps1; Remove-Item Env:GATEWAY_MODO -ErrorAction SilentlyContinue; uvicorn main:app --app-dir src --port 8010
+cd C:\proyectos\LLM\gateway-llm-owasp; .\venv\Scripts\Activate.ps1; Remove-Item Env:GATEWAY_MODO -ErrorAction SilentlyContinue; uvicorn main:app --app-dir src --port 8010
 ```
 
 **Debes ver:**
