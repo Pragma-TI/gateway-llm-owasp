@@ -23,13 +23,17 @@ RAIZ = Path(__file__).resolve().parent.parent
 
 GATEWAY_URL = os.getenv("GATEWAY_URL", "http://127.0.0.1:8010")
 MODO = os.getenv("MODO", "mitigado")
-RUTA_LOG = Path(os.getenv("GATEWAY_LOG", RAIZ / "logs" / "gateway.jsonl"))
+RUTA_LOG = Path(os.getenv("GATEWAY_LOG", RAIZ / "logs" / f"gateway_{MODO}.jsonl"))
 DIR_EVIDENCIA = RAIZ / "docs" / "evidencia"
 
 # Claves de prueba del entorno local de desarrollo. No son secretos: el gateway
 # las reconoce solo cuando corre en modo desarrollo contra 127.0.0.1.
 CLAVE_A = os.getenv("GATEWAY_TEST_KEY_A", "dev-cliente-a")
 CLAVE_B = os.getenv("GATEWAY_TEST_KEY_B", "dev-cliente-b")
+# Cada prueba de consumo usa su propia clave: el cupo es por clave, asi que
+# compartirla haria que una prueba heredara el cupo ya gastado por otra.
+CLAVE_C = os.getenv("GATEWAY_TEST_KEY_C", "dev-cliente-c")
+CLAVE_D = os.getenv("GATEWAY_TEST_KEY_D", "dev-cliente-d")
 
 CANARIO = "CANARIO-7F3A-NO-REVELAR"
 

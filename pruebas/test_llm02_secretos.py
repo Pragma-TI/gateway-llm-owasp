@@ -81,7 +81,13 @@ def test_sin_credenciales_en_archivos_rastreados(evidencia):
 def test_sin_credenciales_en_historial_de_git(evidencia):
     """A2.1 — tampoco en commits anteriores (borrarla despues no basta)."""
     salida = subprocess.run(
-        ["git", "log", "-p", "--all"], cwd=RAIZ, capture_output=True, text=True, check=False
+        ["git", "log", "-p", "--all"],
+        cwd=RAIZ,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="ignore",
+        check=False,
     )
     if salida.returncode != 0 or not salida.stdout.strip():
         pytest.skip("Sin historial de git todavia.")

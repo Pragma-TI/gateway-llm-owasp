@@ -1,0 +1,1 @@
+{"timestamp": "2026-10-04T02:28:51.358030+00:00", "endpoint": "/v1/chat", "cliente": "App Conserjeria", "resultado": "bloqueado_fuga", "motivo": "canario_en_respuesta", "latencia_ms": 3831, "tokens_entrada": 235, "tokens_salida": 200, "max_tokens_aplicado": 200, "violacion": true, "contenido_omitido": true}

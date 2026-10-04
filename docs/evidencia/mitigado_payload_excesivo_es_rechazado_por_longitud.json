@@ -1,0 +1,14 @@
+{
+  "modo": "mitigado",
+  "gateway": "http://127.0.0.1:8010",
+  "caso": "payload_excesivo_es_rechazado_por_longitud",
+  "registros": [
+    {
+      "momento": "2026-10-04T02:27:34.448011+00:00",
+      "caso": "inj-05-longitud",
+      "longitud_payload": 50000,
+      "status": 400,
+      "segundos": 0.017
+    }
+  ]
+}

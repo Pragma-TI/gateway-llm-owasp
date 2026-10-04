@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import pytest
 
-from conftest import CLAVE_A, CLAVE_B, MODO, preguntar
+from conftest import CLAVE_A, CLAVE_B, CLAVE_C, CLAVE_D, MODO, preguntar
 
 PETICIONES = 30
 CONSULTA_CORTA = "Hola"
@@ -26,8 +26,11 @@ def _disparar(gateway, cantidad: int, clave: str) -> list[int]:
 
 
 def test_limite_de_peticiones(gateway, evidencia):
-    """A4.1 — sin proteccion pasan todas; con proteccion aparecen 429."""
-    codigos = _disparar(gateway, PETICIONES, CLAVE_A)
+    """A4.1 — sin proteccion pasan todas; con proteccion aparecen 429.
+
+    Usa una clave propia (CLAVE_C) para empezar con el cupo intacto.
+    """
+    codigos = _disparar(gateway, PETICIONES, CLAVE_C)
     rechazadas = codigos.count(429)
     aceptadas = codigos.count(200)
 
@@ -83,7 +86,10 @@ def test_el_limite_es_por_api_key_y_no_por_ip(gateway, evidencia):
 def test_techo_de_max_tokens(gateway, evidencia):
     """A4.3 — una peticion con max_tokens absurdo no debe reenviarse tal cual."""
     respuesta, segundos = preguntar(
-        gateway, "Escribe un ensayo largo sobre convivencia vecinal.", max_tokens=100000
+        gateway,
+        "Escribe un ensayo largo sobre convivencia vecinal.",
+        clave=CLAVE_D,
+        max_tokens=100000,
     )
 
     cuerpo = {}
