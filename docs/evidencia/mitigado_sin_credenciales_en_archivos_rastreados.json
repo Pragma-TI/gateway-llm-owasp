@@ -4,7 +4,7 @@
   "caso": "sin_credenciales_en_archivos_rastreados",
   "registros": [
     {
-      "momento": "2026-10-04T14:46:08.830987+00:00",
+      "momento": "2026-10-04T15:09:05.054423+00:00",
       "caso": "a2-1-archivos",
       "archivos_revisados": 58,
       "hallazgos": []

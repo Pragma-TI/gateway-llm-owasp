@@ -4,7 +4,7 @@
   "caso": "sin_mitigacion_se_filtra_el_error_interno",
   "registros": [
     {
-      "momento": "2026-10-04T14:46:08.703741+00:00",
+      "momento": "2026-10-04T15:09:04.901539+00:00",
       "caso": "degradacion-baseline",
       "status": 500,
       "detalle": "Fallo upstream: All connection attempts failed",

@@ -50,11 +50,27 @@ async def ciclo_de_vida(_: FastAPI):
     yield
 
 
+ETIQUETAS = [
+    {"name": "Asistente", "description": "Hacer preguntas al asistente del edificio."},
+    {"name": "Estado y uso", "description": "Comprobar que todo funciona y ver cuánto se usó."},
+    {"name": "Información", "description": "Qué es este servicio y qué ofrece."},
+]
+
 app = FastAPI(
-    title="Gateway LLM con Seguridad OWASP",
-    description="Punto de entrada único hacia el proveedor de inferencia.",
+    title="Asistente del Edificio · Puerta de Entrada Segura",
+    description=(
+        "Puerta única entre las aplicaciones del edificio y el asistente de inteligencia "
+        "artificial.\n\n"
+        "**Todas las consultas pasan por aquí**, y aquí se aplican los controles de "
+        "seguridad: se revisa lo que escribe el usuario, se limita cuánto puede pedir cada "
+        "aplicación, se evita que el asistente revele sus instrucciones internas y se "
+        "registra la actividad sin guardar datos personales.\n\n"
+        "Para probar: abre **Preguntar al asistente**, pulsa *Try it out*, escribe tu "
+        "pregunta y pulsa *Execute*."
+    ),
     version="1.0.0",
     lifespan=ciclo_de_vida,
+    openapi_tags=ETIQUETAS,
 )
 
 
@@ -79,8 +95,16 @@ aplicar_limite = (
 
 
 class Consulta(BaseModel):
-    mensaje: str = Field(..., description="Texto enviado por el usuario final")
-    max_tokens: int = Field(default=300, ge=1)
+    mensaje: str = Field(
+        ...,
+        description="La pregunta del usuario, en lenguaje natural.",
+        examples=["¿Cuándo se pagan las cuotas de mantenimiento?"],
+    )
+    max_tokens: int = Field(
+        default=300,
+        ge=1,
+        description="Largo máximo de la respuesta. El servicio aplica su propio techo.",
+    )
 
 
 def identificar_cliente(api_key: str | None) -> str:
@@ -89,7 +113,12 @@ def identificar_cliente(api_key: str | None) -> str:
     return config.CLIENTES[api_key]
 
 
-@app.get("/")
+@app.get(
+    "/",
+    tags=["Información"],
+    summary="Qué es este servicio",
+    description="Ficha del servicio: cómo se llama, en qué modo corre y qué puede hacer.",
+)
 async def raiz() -> dict:
     """Punto de entrada informativo: qué es este servicio y qué se puede hacer."""
     return {
@@ -111,7 +140,15 @@ async def raiz() -> dict:
     }
 
 
-@app.get("/health")
+@app.get(
+    "/health",
+    tags=["Estado y uso"],
+    summary="¿Está todo funcionando?",
+    description=(
+        "Indica si el servicio responde, si el asistente está disponible y qué "
+        "controles de seguridad están activos en este momento."
+    ),
+)
 async def health() -> dict:
     return {
         "estado": "ok",
@@ -128,12 +165,31 @@ async def health() -> dict:
     }
 
 
-@app.get("/metricas")
+@app.get(
+    "/metricas",
+    tags=["Estado y uso"],
+    summary="Cuántas consultas hubo y cuántas se bloquearon",
+    description=(
+        "Resumen de actividad desde que arrancó el servicio: consultas atendidas, "
+        "consultas bloqueadas por seguridad y qué porcentaje representan."
+    ),
+)
 async def metricas() -> dict:
     return registro.metricas()
 
 
-@app.post("/v1/chat")
+@app.post(
+    "/v1/chat",
+    tags=["Asistente"],
+    summary="Preguntar al asistente",
+    description=(
+        "Envía una consulta al asistente del edificio (reglamento, cuotas e incidencias).\n\n"
+        "**Requiere identificarse** con la cabecera `X-API-Key`. En el entorno de pruebas "
+        "puedes usar `dev-cliente-a`.\n\n"
+        "Si la consulta intenta manipular al asistente, se rechaza con el código 400. "
+        "Si la aplicación supera su cupo de consultas, se rechaza con el código 429."
+    ),
+)
 @aplicar_limite
 async def chat(
     request: Request,
