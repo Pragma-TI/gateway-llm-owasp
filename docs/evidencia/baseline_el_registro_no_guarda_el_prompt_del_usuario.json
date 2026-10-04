@@ -1,0 +1,17 @@
+{
+  "modo": "baseline",
+  "gateway": "http://127.0.0.1:8010",
+  "caso": "el_registro_no_guarda_el_prompt_del_usuario",
+  "registros": [
+    {
+      "momento": "2026-10-04T02:17:57.445072+00:00",
+      "caso": "a2-2-log",
+      "ruta_log": "C:\\proyectos\\LLM\\gateway-llm-owasp\\logs\\gateway.jsonl",
+      "encontrado_en_log": {
+        "dni": true,
+        "telefono": true,
+        "fragmento_prompt": true
+      }
+    }
+  ]
+}

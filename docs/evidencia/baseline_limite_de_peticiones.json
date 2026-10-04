@@ -1,0 +1,47 @@
+{
+  "modo": "baseline",
+  "gateway": "http://127.0.0.1:8010",
+  "caso": "limite_de_peticiones",
+  "registros": [
+    {
+      "momento": "2026-10-04T02:18:50.152804+00:00",
+      "caso": "a4-1-rate-limit",
+      "peticiones": 30,
+      "aceptadas": 30,
+      "rechazadas_429": 0,
+      "primera_rechazada": null,
+      "secuencia": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    }
+  ]
+}

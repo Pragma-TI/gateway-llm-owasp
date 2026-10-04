@@ -1,0 +1,13 @@
+{
+  "modo": "baseline",
+  "gateway": "http://127.0.0.1:8010",
+  "caso": "sin_credenciales_en_archivos_rastreados",
+  "registros": [
+    {
+      "momento": "2026-10-04T02:17:54.167908+00:00",
+      "caso": "a2-1-archivos",
+      "archivos_revisados": 28,
+      "hallazgos": []
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "modo": "baseline",
+  "gateway": "http://127.0.0.1:8010",
+  "caso": "al_menos_un_ataque_filtra_en_linea_base",
+  "registros": [
+    {
+      "momento": "2026-10-04T02:18:16.748586+00:00",
+      "caso": "a3-efectividad-ataques",
+      "ataques_que_filtraron": [
+        "leak-01",
+        "leak-02"
+      ]
+    }
+  ]
+}

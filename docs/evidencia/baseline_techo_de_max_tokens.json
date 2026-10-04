@@ -1,0 +1,15 @@
+{
+  "modo": "baseline",
+  "gateway": "http://127.0.0.1:8010",
+  "caso": "techo_de_max_tokens",
+  "registros": [
+    {
+      "momento": "2026-10-04T02:19:03.072245+00:00",
+      "caso": "a4-3-techo-tokens",
+      "max_tokens_solicitado": 100000,
+      "status": 200,
+      "segundos": 12.919,
+      "max_tokens_aplicado": 100000
+    }
+  ]
+}
