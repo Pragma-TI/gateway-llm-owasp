@@ -57,15 +57,20 @@ Espera 10 segundos y repite este paso.
 
 **Escribe:**
 ```
-Get-NetTCPConnection -LocalPort 8010 -State Listen
+if (Get-NetTCPConnection -LocalPort 8010 -State Listen -ErrorAction SilentlyContinue) { "OCUPADO" } else { "LIBRE" }
 ```
 
-**Debes ver:** nada. Ni una línea. El puerto está libre.
+**Debes ver:** la palabra `LIBRE`.
 
-❌ **Si aparece una tabla con datos:** hay un gateway viejo corriendo. Escribe esto y repite el paso:
+❌ **Si dice `OCUPADO`:** hay un gateway viejo corriendo. Escribe esto y repite el paso:
 ```
-Get-NetTCPConnection -LocalPort 8010 -State Listen | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }
+Get-NetTCPConnection -LocalPort 8010 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }
 ```
+
+> **Por qué este comando y no el simple.** Si escribes `Get-NetTCPConnection -LocalPort 8010
+> -State Listen` a secas y el puerto está libre, PowerShell responde con un **error rojo**
+> que dice "no encontró objetos que coincidan". No es un fallo: es su forma de decir "no
+> hay nada". El `-ErrorAction SilentlyContinue` y el `if` lo traducen a una sola palabra.
 
 ➡️ Ve al PASO 5
 
@@ -436,3 +441,4 @@ curl http://127.0.0.1:8010/metricas
 | El navegador no se actualiza | Caché de Chrome | **Ctrl+F5** |
 | 429 antes de tiempo | Gastaste el cupo de esa clave | Espera un minuto |
 | `no se reconoce ollama` | Ollama está apagado | Ábrelo desde el menú Inicio |
+| Error rojo de `Get-NetTCPConnection` | **No es un fallo**: así avisa PowerShell de que no encontró nada, o sea que el puerto está libre | Continúa |
