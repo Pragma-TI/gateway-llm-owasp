@@ -4,7 +4,7 @@
   "caso": "con_mitigacion_el_cliente_recibe_un_mensaje_claro",
   "registros": [
     {
-      "momento": "2026-10-04T03:13:53.035848+00:00",
+      "momento": "2026-10-04T14:46:06.245317+00:00",
       "caso": "degradacion-mitigada",
       "status": 503,
       "detalle": "El servicio de IA no esta disponible. Intenta nuevamente en unos minutos.",

@@ -89,6 +89,28 @@ def identificar_cliente(api_key: str | None) -> str:
     return config.CLIENTES[api_key]
 
 
+@app.get("/")
+async def raiz() -> dict:
+    """Punto de entrada informativo: qué es este servicio y qué se puede hacer."""
+    return {
+        "servicio": "Gateway LLM con Seguridad OWASP",
+        "descripcion": "Punto de entrada unico entre las aplicaciones cliente y el proveedor de inferencia.",
+        "modo": config.MODO,
+        "documentacion_interactiva": "/docs",
+        "endpoints": {
+            "POST /v1/chat": "Consulta al modelo. Requiere la cabecera X-API-Key.",
+            "GET /health": "Estado del gateway, del proveedor y de cada mitigacion.",
+            "GET /metricas": "Peticiones, violaciones y Guardrail Violation Rate.",
+        },
+        "owasp_cubierto": {
+            "LLM01": "Prompt Injection — sanitizacion de entrada",
+            "LLM02": "Sensitive Information Disclosure — credenciales y registro",
+            "LLM07": "System Prompt Leakage — filtro de salida",
+            "LLM10": "Unbounded Consumption — limite por API key y techo de tokens",
+        },
+    }
+
+
 @app.get("/health")
 async def health() -> dict:
     return {

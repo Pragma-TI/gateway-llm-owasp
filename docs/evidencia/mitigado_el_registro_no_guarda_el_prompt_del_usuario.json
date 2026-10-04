@@ -4,7 +4,7 @@
   "caso": "el_registro_no_guarda_el_prompt_del_usuario",
   "registros": [
     {
-      "momento": "2026-10-04T03:14:04.853660+00:00",
+      "momento": "2026-10-04T14:46:15.187715+00:00",
       "caso": "a2-2-log",
       "ruta_log": "C:\\proyectos\\LLM\\gateway-llm-owasp\\logs\\gateway_mitigado.jsonl",
       "encontrado_en_log": {
