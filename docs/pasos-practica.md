@@ -11,27 +11,34 @@ A partir de aquí:
 
 ---
 
-## PASO 1 · VENTANA 1
+## PASO 1 · VENTANA 1 — preparar
 
-**Escribe:**
+**Escribe** (las dos líneas de una vez):
 ```
+cd C:\proyectos\LLM\gateway-llm-owasp; .env\Scripts\Activate.ps1
 $host.UI.RawUI.WindowTitle = "VENTANA 1 - GATEWAY"
 ```
 
-**Debes ver:** el título de esa ventana cambia a *VENTANA 1 - GATEWAY*.
+**Debes ver:** el prompt empieza con **`(venv)`** y el título de la ventana cambia a
+*VENTANA 1 - GATEWAY*.
+
+❌ **Si el prompt sigue diciendo `PS C:\WINDOWS\system32>`:** la ventana no está
+preparada y los comandos siguientes fallarán con *"no se reconoce uvicorn"*.
 
 ➡️ Ve al PASO 2
 
 ---
 
-## PASO 2 · VENTANA 2
+## PASO 2 · VENTANA 2 — preparar
 
-**Escribe:**
+**Escribe** (las dos líneas de una vez):
 ```
+cd C:\proyectos\LLM\gateway-llm-owasp; .env\Scripts\Activate.ps1
 $host.UI.RawUI.WindowTitle = "VENTANA 2 - COMANDOS"
 ```
 
-**Debes ver:** el título cambia a *VENTANA 2 - COMANDOS*.
+**Debes ver:** el prompt empieza con **`(venv)`** y el título cambia a
+*VENTANA 2 - COMANDOS*.
 
 ➡️ Ve al PASO 3
 
@@ -244,7 +251,7 @@ Y el prompt `(venv) PS ...>` disponible otra vez.
 
 **Escribe:**
 ```
-Remove-Item Env:GATEWAY_MODO -ErrorAction SilentlyContinue; uvicorn main:app --app-dir src --port 8010
+cd C:\proyectos\LLM\gateway-llm-owasp; .env\Scripts\Activate.ps1; Remove-Item Env:GATEWAY_MODO -ErrorAction SilentlyContinue; uvicorn main:app --app-dir src --port 8010
 ```
 
 **Debes ver:**
@@ -444,6 +451,7 @@ peticiones violaciones guardrail_violation_rate_pct
 | El modo no cambia | La variable sigue puesta | Cierra la VENTANA 1 y abre otra |
 | El navegador no se actualiza | Caché de Chrome | **Ctrl+F5** |
 | 429 antes de tiempo | Gastaste el cupo de esa clave | Espera un minuto |
+| `no se reconoce uvicorn` | La ventana no está preparada: falta el `cd` y el `Activate` | Mira el prompt: debe empezar con `(venv)` |
 | `no se reconoce ollama` | Ollama está apagado | Ábrelo desde el menú Inicio |
 | `curl` devuelve un bloque enorme (StatusCode, RawContent, Headers...) | En PowerShell `curl` es otro comando distinto al de Linux | Usa `Invoke-RestMethod`, que devuelve solo el dato |
 | Error rojo de `Get-NetTCPConnection` | **No es un fallo**: así avisa PowerShell de que no encontró nada, o sea que el puerto está libre | Continúa |
