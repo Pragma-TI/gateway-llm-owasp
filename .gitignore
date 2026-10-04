@@ -8,3 +8,11 @@ __pycache__/
 .ruff_cache/
 logs/
 # La evidencia SI se versiona: es entregable del proyecto.
+
+# Material personal de preparacion del video: se queda en el disco, no se publica
+docs/pasos-practica.md
+docs/guion-video.md
+docs/guion-grabacion.md
+docs/chuleta-video.md
+docs/respuestas-video.md
+docs/*.docx
